@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>Dashboard Aduan Servis Tren Intercity</title>
+
+<style>
+
+body{
+    font-family: Segoe UI, Arial, sans-serif;
+    margin:20px;
+    background:#f4f6f9;
+}
+
+.header{
+    background:#003366;
+    color:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+.card-container{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    padding:15px;
+    width:220px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h3{
+    margin:0;
+    color:#003366;
+}
+
+.card-value{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.section{
+    background:white;
+    margin-top:20px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#003366;
+    color:white;
+    padding:10px;
+}
+
+td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+.status-open{
+    background:#fff3cd;
+    padding:5px 10px;
+    border-radius:5px;
+}
+
+.status-investigation{
+    background:#d1ecf1;
+    padding:5px 10px;
+    border-radius:5px;
+}
+
+.status-closed{
+    background:#d4edda;
+    padding:5px 10px;
+    border-radius:5px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="header">
+    <h1>Dashboard Aduan Servis Tren Intercity</h1>
+    <p>Ringkasan Aduan Call Center, Webform & E-mel Terus</p>
+</div>
+
+<div class="card-container">
+
+<div class="card">
+    <h3>Jumlah Aduan</h3>
+    <div class="card-value">20</div>
+</div>
+
+<div class="card">
+    <h3>Fasiliti Tren</h3>
+    <div class="card-value">8</div>
+</div>
+
+<div class="card">
+    <h3>Kebersihan</h3>
+    <div class="card-value">4</div>
+</div>
+
+<div class="card">
+    <h3>F&B / BC</h3>
+    <div class="card-value">5</div>
+</div>
+
+<div class="card">
+    <h3>Layanan Staf</h3>
+    <div class="card-value">3</div>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>Trend Aduan</h2>
+
+<table>
+
+<tr>
+    <th>Kategori</th>
+    <th>Bilangan Kes</th>
+    <th>Bahagian Bertanggungjawab</th>
+</tr>
+
+<tr>
+    <td>Aircond / HVAC</td>
+    <td>3</td>
+    <td>RSME</td>
+</tr>
+
+<tr>
+    <td>Tandas & Sanitasi</td>
+    <td>3</td>
+    <td>RSME</td>
+</tr>
+
+<tr>
+    <td>Kebersihan / Lipas</td>
+    <td>4</td>
+    <td>RSME / Kontraktor</td>
+</tr>
+
+<tr>
+    <td>F&B / Makanan</td>
+    <td>5</td>
+    <td>TCB</td>
+</tr>
+
+<tr>
+    <td>Layanan Kakitangan</td>
+    <td>3</td>
+    <td>Intercity / TCB</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="section">
+
+<h2>Senarai Aduan Utama</h2>
+
+<table>
+
+<tr>
+    <th>Tarikh</th>
+    <th>Sumber</th>
+    <th>Tren</th>
+    <th>Kategori</th>
+    <th>Ringkasan</th>
+    <th>Status</th>
+</tr>
+
+<tr>
+    <td>22/10/2026</td>
+    <td>Aduan Formal</td>
+    <td>EG9056</td>
+    <td>Aircond</td>
+    <td>Coach F panas dan kurang pengudaraan</td>
+    <td><span class="status-investigation">Siasatan</span></td>
+</tr>
+
+<tr>
+    <td>17/10/2026</td>
+    <td>Webform</td>
+    <td>Kluang-Pasir Mas</td>
+    <td>Layanan Staf</td>
+    <td>Kakitangan didakwa kasar</td>
+    <td><span class="status-investigation">Siasatan</span></td>
+</tr>
+
+<tr>
+    <td>15/10/2026</td>
+    <td>Webform</td>
+    <td>EP9428</td>
+    <td>Kebersihan</td>
+    <td>Bau tandas dan isu sanitasi</td>
+    <td><span class="status-open">Open</span></td>
+</tr>
+
+<tr>
+    <td>10/10/2026</td>
+    <td>Webform</td>
+    <td>EP9530</td>
+    <td>Lipas</td>
+    <td>Lipas dalam koc ETS</td>
+    <td><span class="status-investigation">Siasatan</span></td>
+</tr>
+
+<tr>
+    <td>08/10/2026</td>
+    <td>Webform</td>
+    <td>EP9528</td>
+    <td>F&B</td>
+    <td>Makanan tempahan lewat dihantar</td>
+    <td><span class="status-investigation">Siasatan</span></td>
+</tr>
+
+<tr>
+    <td>02/09/2026</td>
+    <td>Webform</td>
+    <td>9109</td>
+    <td>Keselamatan Makanan</td>
+    <td>Disyaki keracunan makanan BC</td>
+    <td><span class="status-investigation">Siasatan</span></td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="section">
+
+<h2>Fokus Tindakan Pengurusan</h2>
+
+<ul>
+<li>Aircond dan HVAC ETS</li>
+<li>Kebersihan tandas dan kawalan lipas</li>
+<li>Kualiti perkhidmatan F&B</li>
+<li>Profesionalisme petugas onboard</li>
+<li>Pemantauan tren/set ETS yang berulang menerima aduan</li>
+</ul>
+
+</div>
+
+</body>
+</html>
