@@ -1,84 +1,48 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Dashboard Aduan Servis Tren Intercity</title>
+<title>Dashboard Aduan Servis Tren Intercity (Disahkan)</title>
 
 <style>
 
 body{
-    font-family:Segoe UI,Arial,sans-serif;
+    font-family: Segoe UI, Arial, sans-serif;
     background:#f4f6f9;
-    margin:0;
-    padding:20px;
+    margin:20px;
 }
 
-.header{
-    background:#003366;
-    color:white;
-    padding:20px;
-    border-radius:8px;
-}
-
-.header h1{
-    margin:0;
-}
-
-.cards{
-    display:flex;
-    flex-wrap:wrap;
-    gap:15px;
-    margin-top:20px;
-}
-
-.card{
-    background:white;
-    padding:15px;
-    border-radius:8px;
-    flex:1;
-    min-width:200px;
-    box-shadow:0 2px 6px rgba(0,0,0,.1);
-}
-
-.card-title{
-    font-size:13px;
-    color:#666;
-}
-
-.card-value{
-    font-size:30px;
-    font-weight:bold;
+h1{
     color:#003366;
 }
 
-.section{
-    margin-top:20px;
+h2{
+    color:#003366;
+}
+
+.container{
     background:white;
     padding:20px;
     border-radius:8px;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
-.filters{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
+.filter{
     margin-bottom:15px;
 }
 
-input,select{
-    padding:8px;
+input{
+    width:400px;
+    padding:10px;
     border:1px solid #ccc;
-    border-radius:4px;
+    border-radius:5px;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    font-size:13px;
 }
 
 th{
@@ -86,8 +50,6 @@ th{
     color:white;
     padding:10px;
     text-align:left;
-    position:sticky;
-    top:0;
 }
 
 td{
@@ -99,109 +61,54 @@ tr:hover{
     background:#f5f9ff;
 }
 
-.status-open{
-    background:#fff3cd;
-    padding:5px 8px;
-    border-radius:5px;
-}
-
-.status-progress{
-    background:#d1ecf1;
-    padding:5px 8px;
-    border-radius:5px;
-}
-
-.status-close{
-    background:#d4edda;
-    padding:5px 8px;
-    border-radius:5px;
-}
-
-.small{
-    font-size:11px;
-    color:#666;
-}
-
 </style>
+
+<script>
+
+function searchTable() {
+
+let input = document.getElementById("searchInput");
+let filter = input.value.toUpperCase();
+
+let table = document.getElementById("aduanTable");
+let tr = table.getElementsByTagName("tr");
+
+for(let i=1;i<tr.length;i++){
+
+let txt = tr[i].textContent || tr[i].innerText;
+
+if(txt.toUpperCase().indexOf(filter) > -1){
+tr[i].style.display="";
+}
+else{
+tr[i].style.display="none";
+}
+
+}
+
+}
+
+</script>
 
 </head>
 
 <body>
 
-<div class="header">
-    <h1>Dashboard Aduan Servis Tren Intercity 2026</h1>
-    <p>Call Center | Webform | Direct Email</p>
-</div>
+<div class="container">
 
-<div class="cards">
+<h1>Dashboard Aduan Servis Tren Intercity</h1>
 
-<div class="card">
-<div class="card-title">Jumlah Aduan</div>
-<div class="card-value">26</div>
-</div>
+<p>
+Rekod disahkan berdasarkan semakan e-mel Inbox.
+</p>
 
-<div class="card">
-<div class="card-title">Kemudahan Tren</div>
-<div class="card-value">8</div>
-</div>
-
-<div class="card">
-<div class="card-title">Kebersihan</div>
-<div class="card-value">6</div>
-</div>
-
-<div class="card">
-<div class="card-title">F&B / BC</div>
-<div class="card-value">8</div>
-</div>
-
-<div class="card">
-<div class="card-title">Layanan Staf</div>
-<div class="card-value">4</div>
-</div>
-
-</div>
-
-<div class="section">
-
-<h2>Carian Aduan</h2>
-
-<div class="filters">
+<div class="filter">
 
 <input
 type="text"
-id="myInput"
-placeholder="Cari tren, kategori, subject, status..."
-onkeyup="filterTable()">
-
-<select id="kategoriFilter" onchange="filterTable()">
-<option value="">Semua Kategori</option>
-<option>Aircond</option>
-<option>Kebersihan</option>
-<option>Lipas</option>
-<option>F&B</option>
-<option>Business Class</option>
-<option>Tandas</option>
-<option>Layanan Kakitangan</option>
-<option>Soket Elektrik</option>
-</select>
-
-<select id="sumberFilter" onchange="filterTable()">
-<option value="">Semua Sumber</option>
-<option>Webform</option>
-<option>Call Center</option>
-<option>Email</option>
-<option>Aduan Formal</option>
-</select>
-
-<select id="statusFilter" onchange="filterTable()">
-<option value="">Semua Status</option>
-<option>Open</option>
-<option>Siasatan</option>
-<option>Refund</option>
-<option>RSME</option>
-<option>TCB</option>
-</select>
+id="searchInput"
+onkeyup="searchTable()"
+placeholder="Cari tren, tarikh, kategori atau subject...">
 
 </div>
 
@@ -211,13 +118,11 @@ onkeyup="filterTable()">
 
 <tr>
 <th>Tarikh Email</th>
-<th>Tarikh Aduan/Perjalanan</th>
-<th>Sumber</th>
-<th>No Tren</th>
+<th>Tarikh Laporan</th>
+<th>Tarikh Kejadian</th>
+<th>Tren / Set</th>
 <th>Kategori</th>
-<th>Subject Email</th>
-<th>Status</th>
-<th>Catatan</th>
+<th>Ringkasan Aduan</th>
 </tr>
 
 </thead>
@@ -225,325 +130,189 @@ onkeyup="filterTable()">
 <tbody>
 
 <tr>
-<td>13-Jul-2026</td>
-<td>12-Jun-2026</td>
-<td>Webform</td>
-<td>EP9224</td>
-<td>Seat Rosak</td>
-<td>BC Seat 1C Tidak Boleh Dilaras</td>
-<td>RSME</td>
-<td>Pembaikan diminta</td>
-</tr>
-
-<tr>
-<td>14-Jul-2026</td>
-<td>14-Jul-2026</td>
-<td>Webform</td>
-<td>EP9223</td>
-<td>Soket Elektrik</td>
-<td>Soket 13A dan 13B rosak</td>
-<td>RSME</td>
-<td>Pemeriksaan set tren</td>
-</tr>
-
-<tr>
-<td>17-Jul-2026</td>
-<td>17-Jul-2026</td>
-<td>Webform</td>
-<td>ETS 9428</td>
-<td>Kebersihan</td>
-<td>Serangga Dalam Tren</td>
-<td>Open</td>
-<td>Kawalan perosak</td>
-</tr>
-
-<tr>
-<td>20-Aug-2026</td>
-<td>20-Aug-2026</td>
-<td>Call Center</td>
-<td>N/A</td>
+<td>27-Oct-2026</td>
+<td>26-Oct-2026</td>
+<td>17-Oct-2026</td>
+<td>Kluang → Pasir Mas</td>
 <td>Layanan Kakitangan</td>
-<td>Aduan Cleaner ETS</td>
-<td>Siasatan</td>
-<td>Mesyuarat kontraktor</td>
-</tr>
-
-<tr>
-<td>21-Aug-2026</td>
-<td>21-Aug-2026</td>
-<td>Email</td>
-<td>ETS 9224</td>
-<td>Layanan Kakitangan</td>
-<td>Crew Behaviour Complaint</td>
-<td>Siasatan</td>
-<td>Dalaman</td>
-</tr>
-
-<tr>
-<td>22-Aug-2026</td>
-<td>22-Aug-2026</td>
-<td>Call Center</td>
-<td>ETS 9058</td>
-<td>Lipas</td>
-<td>Lipas Dalam Coach ETS</td>
-<td>Open</td>
-<td>Sanitasi</td>
-</tr>
-
-<tr>
-<td>23-Aug-2026</td>
-<td>23-Aug-2026</td>
-<td>Call Center</td>
-<td>EP9535</td>
-<td>Lipas</td>
-<td>Lipas Dan Serangga</td>
-<td>Open</td>
-<td>Sanitasi</td>
-</tr>
-
-<tr>
-<td>31-Aug-2026</td>
-<td>31-Aug-2026</td>
-<td>Webform</td>
-<td>ETS 9575</td>
-<td>F&B</td>
-<td>Kualiti Hidangan BC</td>
-<td>Refund</td>
-<td>RM15</td>
-</tr>
-
-<tr>
-<td>02-Sep-2026</td>
-<td>02-Sep-2026</td>
-<td>Webform</td>
-<td>ETS 9109</td>
-<td>F&B</td>
-<td>Disyaki Keracunan Makanan</td>
-<td>Siasatan</td>
-<td>TCB</td>
+<td>
+Fw: Complaint Regarding Rude and Unprofessional KTM Staff
+</td>
 </tr>
 
 <tr>
 <td>09-Sep-2026</td>
 <td>08-Sep-2026</td>
-<td>Call Center</td>
+<td>08-Sep-2026</td>
 <td>ETS 9214</td>
-<td>F&B</td>
-<td>Kegagalan Pembekalan Makanan Add-on</td>
-<td>TCB</td>
-<td>Meal not delivered</td>
+<td>Makanan / Catering</td>
+<td>
+Kegagalan Pembekalan Makanan Yang Telah Ditempah Awal
+</td>
 </tr>
 
 <tr>
-<td>15-Sep-2026</td>
-<td>14-Sep-2026</td>
-<td>Webform</td>
-<td>ETS 9352</td>
-<td>Layanan Kakitangan</td>
-<td>Staf Abaikan Tugasan</td>
-<td>Siasatan</td>
-<td>HR/Operasi</td>
-</tr>
-
-<tr>
-<td>16-Sep-2026</td>
-<td>16-Sep-2026</td>
-<td>Email</td>
-<td>N/A</td>
-<td>Business Class</td>
-<td>Vegetarian Meal Tidak Disediakan</td>
-<td>TCB</td>
-<td>Semakan katering</td>
-</tr>
-
-<tr>
-<td>27-Sep-2026</td>
-<td>27-Sep-2026</td>
-<td>Webform</td>
-<td>EP9233</td>
-<td>Aircond</td>
-<td>Coach E Tidak Sejuk</td>
-<td>RSME</td>
-<td>Semakan HVAC</td>
-</tr>
-
-<tr>
-<td>29-Sep-2026</td>
-<td>29-Sep-2026</td>
-<td>Webform</td>
-<td>EP9428</td>
+<td>16-Jul-2026</td>
+<td>14-Jul-2026</td>
+<td>14-Jul-2026</td>
+<td>EP9223 Set 214</td>
 <td>Soket Elektrik</td>
-<td>Powerbank Mengembung</td>
-<td>Siasatan</td>
-<td>Keselamatan Elektrik</td>
+<td>
+Plug Seat 13A dan 13B tidak berfungsi
+</td>
 </tr>
 
 <tr>
-<td>04-Oct-2026</td>
-<td>04-Oct-2026</td>
-<td>Webform</td>
-<td>EP9135</td>
-<td>Aircond</td>
-<td>Coach B Tidak Sejuk</td>
-<td>RSME</td>
-<td>Semakan teknik</td>
+<td>13-Jul-2026</td>
+<td>11-Jul-2026</td>
+<td>12-Jun-2026</td>
+<td>EP9224 / ETS305</td>
+<td>Kerusi BC Rosak</td>
+<td>
+Seat 1C tidak boleh dilaras
+</td>
 </tr>
 
 <tr>
-<td>08-Oct-2026</td>
-<td>08-Oct-2026</td>
-<td>Webform</td>
-<td>EP9528</td>
-<td>F&B</td>
-<td>Makanan Lewat Dihantar</td>
-<td>Siasatan</td>
-<td>TCB</td>
+<td>21-Aug-2026</td>
+<td>19-Aug-2026</td>
+<td>19-Aug-2026</td>
+<td>ETS9323 Set 306</td>
+<td>Kemudahan Tren</td>
+<td>
+Seat 10D basah
+</td>
 </tr>
 
 <tr>
+<td>12-Oct-2026</td>
+<td>11-Oct-2026</td>
 <td>10-Oct-2026</td>
-<td>10-Oct-2026</td>
-<td>Aduan Formal</td>
-<td>EX9209</td>
-<td>Tandas</td>
-<td>Tandas BC Tidak Berfungsi</td>
-<td>RSME</td>
-<td>Pemeriksaan fasiliti</td>
-</tr>
-
-<tr>
-<td>10-Oct-2026</td>
-<td>10-Oct-2026</td>
-<td>Webform</td>
-<td>EP9530</td>
+<td>ETS9530 Set 304</td>
 <td>Lipas</td>
-<td>Lipas Dalam ETS</td>
-<td>Open</td>
-<td>Kawalan perosak</td>
+<td>
+Aduan lipas dalam tren
+</td>
 </tr>
 
 <tr>
-<td>11-Oct-2026</td>
-<td>11-Oct-2026</td>
-<td>Email</td>
-<td>ETS9326 BC</td>
-<td>Business Class</td>
-<td>Pertikaian Manfaat BC</td>
-<td>Siasatan</td>
-<td>Operasi</td>
-</tr>
-
-<tr>
-<td>13-Oct-2026</td>
-<td>13-Oct-2026</td>
-<td>Webform</td>
-<td>EX9214</td>
-<td>F&B</td>
-<td>Air Panas Tidak Dilayan</td>
-<td>Siasatan</td>
-<td>TCB</td>
-</tr>
-
-<tr>
-<td>14-Oct-2026</td>
-<td>14-Oct-2026</td>
-<td>Webform</td>
-<td>ETS Ipoh-JB</td>
-<td>Kebersihan</td>
-<td>Lipas Dan Bau Tandas</td>
-<td>Open</td>
-<td>Sanitasi</td>
-</tr>
-
-<tr>
-<td>15-Oct-2026</td>
-<td>15-Oct-2026</td>
-<td>Webform</td>
-<td>EP9428</td>
-<td>Kebersihan</td>
-<td>Bau Tandas</td>
-<td>RSME</td>
-<td>Sanitasi coach</td>
-</tr>
-
-<tr>
-<td>17-Oct-2026</td>
-<td>17-Oct-2026</td>
-<td>Webform</td>
-<td>Kluang-Pasir Mas</td>
-<td>Layanan Kakitangan</td>
-<td>Staff Tidak Profesional</td>
-<td>Siasatan</td>
-<td>Tatatertib</td>
-</tr>
-
-<tr>
-<td>22-Oct-2026</td>
-<td>22-Oct-2026</td>
-<td>Aduan Formal</td>
-<td>EG9056</td>
+<td>12-Oct-2026</td>
+<td>10-Oct-2026</td>
+<td>10-Oct-2026</td>
+<td>EP9133 Set 217</td>
 <td>Aircond</td>
-<td>Coach F Panas</td>
-<td>RSME</td>
-<td>HVAC</td>
+<td>
+Coach E tidak sejuk
+</td>
 </tr>
 
 <tr>
-<td>27-Oct-2026</td>
-<td>26-Oct-2026</td>
-<td>Webform</td>
-<td>ETS9108</td>
-<td>F&B</td>
-<td>Feedback Form 920525075294</td>
-<td>Refund</td>
-<td>1 daripada 2 hidangan diterima</td>
+<td>12-Oct-2026</td>
+<td>12-Oct-2026</td>
+<td>10-Oct-2026</td>
+<td>ETS9442 Set 202</td>
+<td>Kebocoran Tingkap</td>
+<td>
+Tingkap Koc F Seat 3A bocor
+</td>
+</tr>
+
+<tr>
+<td>09-Oct-2026</td>
+<td>09-Oct-2026</td>
+<td>09-Oct-2026</td>
+<td>ETS9226 Set 211</td>
+<td>Tandas Rosak</td>
+<td>
+Tandas Koc B tidak berfungsi
+</td>
+</tr>
+
+<tr>
+<td>16-Oct-2026</td>
+<td>15-Oct-2026</td>
+<td>15-Oct-2026</td>
+<td>EP9428 Set 306</td>
+<td>Sanitasi / Kebersihan</td>
+<td>
+Bau tandas dan pengudaraan
+</td>
+</tr>
+
+<tr>
+<td>15-Oct-2026</td>
+<td>14-Oct-2026</td>
+<td>14-Oct-2026</td>
+<td>Tidak Dinyatakan</td>
+<td>Keselamatan</td>
+<td>
+Maklum balas isu pintu / emergency brake
+</td>
+</tr>
+
+<tr>
+<td>28-Jul-2026</td>
+<td>27-Jul-2026</td>
+<td>25-Jul-2026</td>
+<td>ETS9532 Set 302</td>
+<td>Tandas</td>
+<td>
+Tandas berbau tidak menyenangkan
+</td>
+</tr>
+
+<tr>
+<td>13-Jul-2026</td>
+<td>12-Jul-2026</td>
+<td>12-Jul-2026</td>
+<td>ETS9225 Set 213</td>
+<td>Tandas Rosak</td>
+<td>
+Total toilet breakdown
+</td>
+</tr>
+
+<tr>
+<td>29-Jun-2026</td>
+<td>27-Jun-2026</td>
+<td>20-Jun-2026</td>
+<td>Tren 9045 Set 202</td>
+<td>Kebersihan</td>
+<td>
+Aduan bau dan kebersihan koc
+</td>
+</tr>
+
+<tr>
+<td>24-Jun-2026</td>
+<td>24-Jun-2026</td>
+<td>Tidak Dinyatakan</td>
+<td>EG9442 Set ETS204</td>
+<td>Pengumuman Tren</td>
+<td>
+Bunyi pengumuman terlalu kuat
+</td>
 </tr>
 
 </tbody>
+
 </table>
+
+<br>
+
+<h2>Statistik Ringkas</h2>
+
+<ul>
+<li>Jumlah Rekod Disahkan: 15</li>
+<li>Aduan Kemudahan Tren: 6</li>
+<li>Aduan Tandas / Sanitasi: 4</li>
+<li>Aduan Kebersihan / Lipas: 3</li>
+<li>Aduan F&B: 1</li>
+<li>Aduan Kakitangan: 1</li>
+</ul>
+
 </div>
-
-<script>
-
-function filterTable() {
-
-let search = document.getElementById("myInput").value.toUpperCase();
-let kategori = document.getElementById("kategoriFilter").value.toUpperCase();
-let sumber = document.getElementById("sumberFilter").value.toUpperCase();
-let status = document.getElementById("statusFilter").value.toUpperCase();
-
-let table = document.getElementById("aduanTable");
-let tr = table.getElementsByTagName("tr");
-
-for(let i=1;i<tr.length;i++){
-
-let txt = tr[i].innerText.toUpperCase();
-
-let show = true;
-
-if(search && !txt.includes(search)){
-show=false;
-}
-
-if(kategori && !txt.includes(kategori)){
-show=false;
-}
-
-if(sumber && !txt.includes(sumber)){
-show=false;
-}
-
-if(status && !txt.includes(status)){
-show=false;
-}
-
-tr[i].style.display = show ? "" : "none";
-
-}
-
-}
-
-</script>
 
 </body>
 </html>
+``
