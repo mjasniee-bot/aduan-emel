@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Dashboard Aduan Servis Tren Intercity</title>
+<title>Dashboard Aduan Servis Tren Intercity v0.6</title>
 
 <style>
 
@@ -22,11 +22,11 @@ body{
 }
 
 .container{
-    margin-top:20px;
     background:white;
+    margin-top:20px;
     padding:20px;
     border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 .cards{
@@ -41,7 +41,7 @@ body{
     padding:15px;
     border-radius:8px;
     cursor:pointer;
-    transition:all .2s;
+    transition:0.25s;
 }
 
 .card:hover{
@@ -63,26 +63,24 @@ body{
 }
 
 input{
-    padding:10px;
     width:400px;
+    padding:10px;
     border:1px solid #ccc;
     border-radius:5px;
 }
 
 button{
     padding:10px 15px;
-    margin-left:8px;
     border:none;
-    border-radius:5px;
     background:#003366;
     color:white;
+    border-radius:5px;
     cursor:pointer;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    margin-top:15px;
     font-size:13px;
 }
 
@@ -99,7 +97,29 @@ td{
 }
 
 tr:hover{
-    background:#f1f7ff;
+    background:#f5f9ff;
+}
+
+.unverified{
+    background:#fff3cd;
+}
+
+.badge{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:4px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.badge-verified{
+    background:#d4edda;
+    color:#155724;
+}
+
+.badge-unverified{
+    background:#fff3cd;
+    color:#856404;
 }
 
 .footer{
@@ -111,6 +131,27 @@ tr:hover{
 </style>
 
 <script>
+
+function filterCategory(category){
+
+const rows=document.querySelectorAll("#aduanTable tbody tr");
+
+rows.forEach(row=>{
+
+const cat=row.getAttribute("data-category");
+
+if(category==="ALL"){
+row.style.display="";
+}
+else{
+row.style.display=(cat===category)?"":"none";
+}
+
+});
+
+document.getElementById("searchInput").value="";
+
+}
 
 function searchTable(){
 
@@ -125,39 +166,12 @@ let text=row.innerText.toUpperCase();
 
 if(text.indexOf(filter)>-1){
 row.style.display="";
-}else{
-row.style.display="none";
-}
-
-});
-
-}
-
-function filterCategory(category){
-
-let rows=document.querySelectorAll("#aduanTable tbody tr");
-
-rows.forEach(row=>{
-
-let cat=row.getAttribute("data-category");
-
-if(category=="ALL"){
-row.style.display="";
-}
-else{
-
-if(cat===category){
-row.style.display="";
 }
 else{
 row.style.display="none";
 }
 
-}
-
 });
-
-document.getElementById("searchInput").value="";
 
 }
 
@@ -169,64 +183,64 @@ document.getElementById("searchInput").value="";
 
 <div class="header">
 <h1>Dashboard Aduan Servis Tren Intercity</h1>
-<p>Rekod Aduan Yang Telah Disahkan Daripada Inbox</p>
+<p>Versi 0.6 | 15 Rekod Disahkan + 5 Rekod F&B Menunggu Pengesahan Tarikh</p>
 </div>
 
 <div class="container">
 
-<h2>KPI Aduan Disahkan</h2>
+<h2>KPI Aduan</h2>
 
 <div class="cards">
 
-<div class="card" style="background:#003366;"
+<div class="card" style="background:#003366"
 onclick="filterCategory('ALL')">
-<h3>Jumlah Rekod</h3>
-<div class="value">15</div>
+<h3>Jumlah Kes</h3>
+<div class="value">20</div>
 </div>
 
-<div class="card" style="background:#0d6efd;"
+<div class="card" style="background:#dc3545"
+onclick="filterCategory('F&B')">
+<h3>F&B</h3>
+<div class="value">6</div>
+</div>
+
+<div class="card" style="background:#0d6efd"
 onclick="filterCategory('Tandas')">
 <h3>Tandas / Sanitasi</h3>
 <div class="value">4</div>
 </div>
 
-<div class="card" style="background:#198754;"
+<div class="card" style="background:#198754"
 onclick="filterCategory('Kemudahan')">
 <h3>Kemudahan Tren</h3>
 <div class="value">4</div>
 </div>
 
-<div class="card" style="background:#fd7e14;"
+<div class="card" style="background:#fd7e14"
 onclick="filterCategory('Kebersihan')">
 <h3>Kebersihan & Lipas</h3>
 <div class="value">2</div>
 </div>
 
-<div class="card" style="background:#dc3545;"
-onclick="filterCategory('F&B')">
-<h3>F&B</h3>
-<div class="value">1</div>
-</div>
-
-<div class="card" style="background:#6f42c1;"
+<div class="card" style="background:#6f42c1"
 onclick="filterCategory('HVAC')">
 <h3>HVAC / Aircond</h3>
 <div class="value">1</div>
 </div>
 
-<div class="card" style="background:#20c997;"
+<div class="card" style="background:#20c997"
 onclick="filterCategory('Kakitangan')">
 <h3>Layanan Kakitangan</h3>
 <div class="value">1</div>
 </div>
 
-<div class="card" style="background:#6c757d;"
+<div class="card" style="background:#6c757d"
 onclick="filterCategory('Elektrik')">
 <h3>Soket Elektrik</h3>
 <div class="value">1</div>
 </div>
 
-<div class="card" style="background:#495057;"
+<div class="card" style="background:#495057"
 onclick="filterCategory('Keselamatan')">
 <h3>Keselamatan</h3>
 <div class="value">1</div>
@@ -239,8 +253,8 @@ onclick="filterCategory('Keselamatan')">
 <input
 type="text"
 id="searchInput"
-placeholder="Cari tren, kategori, tarikh atau aduan..."
-onkeyup="searchTable()">
+onkeyup="searchTable()"
+placeholder="Cari tren, tarikh, kategori atau aduan">
 
 <button onclick="filterCategory('ALL')">
 Papar Semua
@@ -253,6 +267,7 @@ Papar Semua
 <thead>
 
 <tr>
+<th>Status</th>
 <th>Tarikh Email</th>
 <th>Tarikh Laporan</th>
 <th>Tarikh Kejadian</th>
@@ -265,7 +280,10 @@ Papar Semua
 
 <tbody>
 
+<!-- DISAHKAN -->
+
 <tr data-category="Kakitangan">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>27-Oct-2026</td>
 <td>26-Oct-2026</td>
 <td>17-Oct-2026</td>
@@ -275,6 +293,7 @@ Papar Semua
 </tr>
 
 <tr data-category="F&B">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>09-Sep-2026</td>
 <td>08-Sep-2026</td>
 <td>08-Sep-2026</td>
@@ -284,15 +303,17 @@ Papar Semua
 </tr>
 
 <tr data-category="Elektrik">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>16-Jul-2026</td>
 <td>14-Jul-2026</td>
 <td>14-Jul-2026</td>
 <td>EP9223 Set214</td>
 <td>Soket Elektrik</td>
-<td>Plug Seat 13A dan 13B tidak berfungsi</td>
+<td>Plug seat 13A dan 13B tidak berfungsi</td>
 </tr>
 
 <tr data-category="Kemudahan">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>13-Jul-2026</td>
 <td>11-Jul-2026</td>
 <td>12-Jun-2026</td>
@@ -302,6 +323,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Kemudahan">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>21-Aug-2026</td>
 <td>19-Aug-2026</td>
 <td>19-Aug-2026</td>
@@ -311,6 +333,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Kebersihan">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>12-Oct-2026</td>
 <td>11-Oct-2026</td>
 <td>10-Oct-2026</td>
@@ -320,6 +343,7 @@ Papar Semua
 </tr>
 
 <tr data-category="HVAC">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>12-Oct-2026</td>
 <td>10-Oct-2026</td>
 <td>10-Oct-2026</td>
@@ -329,6 +353,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Kemudahan">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>12-Oct-2026</td>
 <td>12-Oct-2026</td>
 <td>10-Oct-2026</td>
@@ -338,6 +363,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Tandas">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>09-Oct-2026</td>
 <td>09-Oct-2026</td>
 <td>09-Oct-2026</td>
@@ -347,6 +373,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Tandas">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>16-Oct-2026</td>
 <td>15-Oct-2026</td>
 <td>15-Oct-2026</td>
@@ -356,6 +383,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Keselamatan">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>15-Oct-2026</td>
 <td>14-Oct-2026</td>
 <td>14-Oct-2026</td>
@@ -365,6 +393,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Tandas">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>28-Jul-2026</td>
 <td>27-Jul-2026</td>
 <td>25-Jul-2026</td>
@@ -374,6 +403,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Tandas">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>13-Jul-2026</td>
 <td>12-Jul-2026</td>
 <td>12-Jul-2026</td>
@@ -383,6 +413,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Kebersihan">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>29-Jun-2026</td>
 <td>27-Jun-2026</td>
 <td>20-Jun-2026</td>
@@ -392,6 +423,7 @@ Papar Semua
 </tr>
 
 <tr data-category="Kemudahan">
+<td><span class="badge badge-verified">Disahkan</span></td>
 <td>24-Jun-2026</td>
 <td>24-Jun-2026</td>
 <td>Tidak Dinyatakan</td>
@@ -400,14 +432,65 @@ Papar Semua
 <td>Bunyi pengumuman terlalu kuat</td>
 </tr>
 
+<!-- F&B BELUM DISAHKAN -->
+
+<tr class="unverified" data-category="F&B">
+<td><span class="badge badge-unverified">Belum Disahkan</span></td>
+<td>Belum Disahkan</td>
+<td>Belum Disahkan</td>
+<td>Belum Disahkan</td>
+<td>Tidak Dinyatakan</td>
+<td>F&B</td>
+<td>Vegetarian meal tidak disediakan walaupun telah dipohon lebih awal</td>
+</tr>
+
+<tr class="unverified" data-category="F&B">
+<td><span class="badge badge-unverified">Belum Disahkan</span></td>
+<td>Belum Disahkan</td>
+<td>Belum Disahkan</td>
+<td>Belum Disahkan</td>
+<td>ETS9109</td>
+<td>F&B</td>
+<td>Disyaki keracunan makanan Business Class</td>
+</tr>
+
+<tr class="unverified" data-category="F&B">
+<td><span class="badge badge-unverified">Belum Disahkan</span></td>
+<td>Belum Disahkan</td>
+<td>Belum Disahkan</td>
+<td>Belum Disahkan</td>
+<td>EX9214</td>
+<td>F&B</td>
+<td>Permintaan air panas tidak dilayan oleh kru F&B</td>
+</tr>
+
+<tr class="unverified" data-category="F&B">
+<td><span class="badge badge-unverified">Belum Disahkan</span></td>
+<td>Belum Disahkan</td>
+<td>Belum Disahkan</td>
+<td>Belum Disahkan</td>
+<td>EG9343</td>
+<td>F&B</td>
+<td>Aduan layanan Dining Car Staff / Bistro Staff</td>
+</tr>
+
+<tr class="unverified" data-category="F&B">
+<td><span class="badge badge-unverified">Belum Disahkan</span></td>
+<td>27-Oct-2026</td>
+<td>26-Oct-2026</td>
+<td>26-Oct-2026</td>
+<td>ETS9108</td>
+<td>F&B</td>
+<td>2 hidangan dibeli tetapi hanya 1 hidangan diterima</td>
+</tr>
+
 </tbody>
 
 </table>
 
 <div class="footer">
-Dashboard Aduan Servis Tren Intercity v0.5 |
-15 rekod disahkan daripada Inbox |
-Klik mana-mana kad KPI untuk menapis kategori.
+Dashboard Aduan Servis Tren Intercity v0.6 |
+20 rekod dipaparkan (15 Disahkan + 5 F&B Belum Disahkan)
 </div>
 
 </div>
