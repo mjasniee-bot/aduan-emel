@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="ms">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dashboard Aduan Servis Tren Intercity v0.6</title>
 
 <style>
 
 body{
-    font-family:'Segoe UI',Arial,sans-serif;
+    font-family:Segoe UI,Arial,sans-serif;
     background:#f4f6f9;
     margin:20px;
 }
@@ -26,7 +28,7 @@ body{
     margin-top:20px;
     padding:20px;
     border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
 .cards{
@@ -41,10 +43,11 @@ body{
     padding:15px;
     border-radius:8px;
     cursor:pointer;
+    transition:0.2s;
 }
 
 .card:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 }
 
 .card h3{
@@ -58,18 +61,22 @@ body{
 }
 
 .toolbar{
-    margin-bottom:15px;
+    margin-bottom:20px;
 }
 
 input{
-    width:420px;
+    width:450px;
     padding:10px;
     border:1px solid #ccc;
-    border-radius:4px;
+    border-radius:5px;
 }
 
 button{
     padding:10px 15px;
+    border:none;
+    background:#003366;
+    color:white;
+    border-radius:5px;
     cursor:pointer;
 }
 
@@ -82,8 +89,8 @@ table{
 th{
     background:#003366;
     color:white;
-    padding:10px;
     text-align:left;
+    padding:10px;
 }
 
 td{
@@ -93,10 +100,6 @@ td{
 
 tr:hover{
     background:#f4f8ff;
-}
-
-.unverified{
-    background:#fff8dc;
 }
 
 .badge{
@@ -116,6 +119,31 @@ tr:hover{
     color:#856404;
 }
 
+.unverified{
+    background:#fff8dc;
+}
+
+details{
+    cursor:pointer;
+}
+
+details summary{
+    color:#856404;
+    font-weight:600;
+}
+
+.details-box{
+
+    margin-top:8px;
+    padding:10px;
+
+    background:#fffef5;
+
+    border-left:4px solid #ffc107;
+
+    line-height:1.6;
+}
+
 .footer{
     margin-top:20px;
     color:#666;
@@ -124,41 +152,56 @@ tr:hover{
 
 </style>
 
+
 <script>
 
 function filterCategory(category){
 
-let rows=document.querySelectorAll("#aduanTable tbody tr");
+const rows =
+document.querySelectorAll(
+"#aduanTable tbody tr"
+);
 
 rows.forEach(function(row){
 
-let cat=row.dataset.category;
-
-if(category=="ALL"){
+if(category=="ALL")
+{
 row.style.display="";
 }
-else{
-row.style.display=(cat===category)?"":"none";
+else
+{
+row.style.display=
+row.dataset.category===category
+?
+""
+:
+"none";
 }
 
 });
-
-document.getElementById("searchInput").value="";
 
 }
 
 function searchTable(){
 
-let filter=document.getElementById("searchInput").value.toUpperCase();
+let filter=
+document
+.getElementById("searchInput")
+.value
+.toUpperCase();
 
-let rows=document.querySelectorAll("#aduanTable tbody tr");
+let rows=
+document.querySelectorAll(
+"#aduanTable tbody tr"
+);
 
 rows.forEach(function(row){
 
-let txt=row.innerText.toUpperCase();
+let txt=
+row.innerText.toUpperCase();
 
 row.style.display=
-(txt.indexOf(filter)>-1)
+txt.indexOf(filter)>-1
 ?
 ""
 :
@@ -175,77 +218,123 @@ row.style.display=
 <body>
 
 <div class="header">
-<h1>Dashboard Aduan Servis Tren Intercity v0.6</h1>
-<p>21 Kes (15 Disahkan + 6 Menunggu Verifikasi Metadata)</p>
+
+<h1>
+Dashboard Aduan Servis Tren Intercity
+</h1>
+
+<p>
+21 Kes
+(15 Disahkan + 6 Menunggu Verifikasi)
+</p>
+
 </div>
 
 <div class="container">
 
+<h2>KPI Aduan</h2>
+
 <div class="cards">
 
-<div class="card" style="background:#003366"
+<div class="card"
+style="background:#003366"
 onclick="filterCategory('ALL')">
+
 <h3>Jumlah Kes</h3>
 <div class="value">21</div>
+
 </div>
 
-<div class="card" style="background:#dc3545"
+
+<div class="card"
+style="background:#dc3545"
 onclick="filterCategory('F&B')">
+
 <h3>F&B</h3>
 <div class="value">7</div>
+
 </div>
 
-<div class="card" style="background:#0d6efd"
+
+<div class="card"
+style="background:#0d6efd"
 onclick="filterCategory('TANDAS')">
+
 <h3>Tandas / Sanitasi</h3>
 <div class="value">4</div>
+
 </div>
 
-<div class="card" style="background:#198754"
+
+<div class="card"
+style="background:#198754"
 onclick="filterCategory('KEMUDAHAN')">
+
 <h3>Kemudahan Tren</h3>
 <div class="value">4</div>
+
 </div>
 
-<div class="card" style="background:#fd7e14"
+
+<div class="card"
+style="background:#fd7e14"
 onclick="filterCategory('KEBERSIHAN')">
+
 <h3>Kebersihan & Lipas</h3>
 <div class="value">2</div>
+
 </div>
 
-<div class="card" style="background:#6f42c1"
+
+<div class="card"
+style="background:#6f42c1"
 onclick="filterCategory('HVAC')">
+
 <h3>HVAC / Aircond</h3>
 <div class="value">1</div>
+
 </div>
 
-<div class="card" style="background:#20c997"
+
+<div class="card"
+style="background:#20c997"
 onclick="filterCategory('KAKITANGAN')">
+
 <h3>Layanan Kakitangan</h3>
 <div class="value">1</div>
+
 </div>
 
-<div class="card" style="background:#6c757d"
+
+<div class="card"
+style="background:#6c757d"
 onclick="filterCategory('ELEKTRIK')">
+
 <h3>Soket Elektrik</h3>
 <div class="value">1</div>
+
 </div>
 
-<div class="card" style="background:#495057"
+
+<div class="card"
+style="background:#495057"
 onclick="filterCategory('KESELAMATAN')">
+
 <h3>Keselamatan</h3>
 <div class="value">1</div>
+
 </div>
 
 </div>
+
 
 <div class="toolbar">
 
 <input
 type="text"
 id="searchInput"
-placeholder="Cari tren, tarikh, kategori atau aduan..."
-onkeyup="searchTable()">
+onkeyup="searchTable()"
+placeholder="Cari tarikh, tren, kategori atau aduan">
 
 <button onclick="filterCategory('ALL')">
 Papar Semua
@@ -253,250 +342,728 @@ Papar Semua
 
 </div>
 
+
 <table id="aduanTable">
 
 <thead>
+
 <tr>
-<th>Status Data</th>
+
+<th>Status</th>
 <th>Tarikh Email</th>
 <th>Tarikh Laporan</th>
 <th>Tarikh Kejadian</th>
 <th>Tren / Set</th>
 <th>Kategori</th>
-<th>Ringkasan Aduan</th>
+<th>Maklumat Aduan</th>
+
 </tr>
+
 </thead>
 
 <tbody>
 
-<!-- ========================= -->
-<!-- 15 REKOD DISAHKAN -->
-<!-- ========================= -->
+<!-- REKOD DATA BERMULA -->
+
+    <!-- ================================================= -->
+<!-- REKOD 1 -->
+<!-- ================================================= -->
 
 <tr data-category="KAKITANGAN">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>27-Oct-2026</td>
 <td>26-Oct-2026</td>
 <td>17-Oct-2026</td>
 <td>Kluang → Pasir Mas</td>
 <td>Layanan Kakitangan</td>
-<td>Complaint Regarding Rude and Unprofessional KTM Staff</td>
+<td>
+Complaint Regarding Rude and Unprofessional KTM Staff
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 2 -->
+<!-- ================================================= -->
+
 <tr data-category="F&B">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>09-Sep-2026</td>
 <td>08-Sep-2026</td>
 <td>08-Sep-2026</td>
 <td>ETS9214</td>
 <td>F&B</td>
-<td>Tempahan makanan add-on tidak diterima</td>
+<td>
+Tempahan makanan add-on tidak diterima
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 3 -->
+<!-- ================================================= -->
+
 <tr data-category="ELEKTRIK">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>16-Jul-2026</td>
 <td>14-Jul-2026</td>
 <td>14-Jul-2026</td>
 <td>EP9223 Set214</td>
 <td>Soket Elektrik</td>
-<td>Plug seat 13A dan 13B tidak berfungsi</td>
+<td>
+Plug Seat 13A dan 13B tidak berfungsi
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 4 -->
+<!-- ================================================= -->
+
 <tr data-category="KEMUDAHAN">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>13-Jul-2026</td>
 <td>11-Jul-2026</td>
 <td>12-Jun-2026</td>
 <td>EP9224 / ETS305</td>
 <td>Kemudahan Tren</td>
-<td>Kerusi BC Seat 1C rosak</td>
+<td>
+Kerusi Business Class Seat 1C rosak
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 5 -->
+<!-- ================================================= -->
+
 <tr data-category="KEMUDAHAN">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>21-Aug-2026</td>
 <td>19-Aug-2026</td>
 <td>19-Aug-2026</td>
 <td>ETS9323 Set306</td>
 <td>Kemudahan Tren</td>
-<td>Seat 10D basah</td>
+<td>
+Seat 10D basah
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 6 -->
+<!-- ================================================= -->
+
 <tr data-category="KEBERSIHAN">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>12-Oct-2026</td>
 <td>11-Oct-2026</td>
 <td>10-Oct-2026</td>
 <td>ETS9530 Set304</td>
 <td>Kebersihan & Lipas</td>
-<td>Aduan lipas dalam tren</td>
+<td>
+Aduan lipas dalam tren
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 7 -->
+<!-- ================================================= -->
+
 <tr data-category="HVAC">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>12-Oct-2026</td>
 <td>10-Oct-2026</td>
 <td>10-Oct-2026</td>
 <td>EP9133 Set217</td>
 <td>HVAC / Aircond</td>
-<td>Coach E tidak sejuk</td>
+<td>
+Coach E tidak sejuk
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 8 -->
+<!-- ================================================= -->
+
 <tr data-category="KEMUDAHAN">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>12-Oct-2026</td>
 <td>12-Oct-2026</td>
 <td>10-Oct-2026</td>
 <td>ETS9442 Set202</td>
 <td>Kemudahan Tren</td>
-<td>Tingkap Koc F Seat 3A bocor</td>
+<td>
+Tingkap Koc F Seat 3A bocor
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 9 -->
+<!-- ================================================= -->
+
 <tr data-category="TANDAS">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>09-Oct-2026</td>
 <td>09-Oct-2026</td>
 <td>09-Oct-2026</td>
 <td>ETS9226 Set211</td>
 <td>Tandas / Sanitasi</td>
-<td>Tandas Koc B rosak</td>
+<td>
+Tandas Koc B rosak
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 10 -->
+<!-- ================================================= -->
+
 <tr data-category="TANDAS">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>16-Oct-2026</td>
 <td>15-Oct-2026</td>
 <td>15-Oct-2026</td>
 <td>EP9428 Set306</td>
 <td>Tandas / Sanitasi</td>
-<td>Bau tandas dan pengudaraan</td>
+<td>
+Bau tandas dan masalah pengudaraan
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 11 -->
+<!-- ================================================= -->
+
 <tr data-category="KESELAMATAN">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>15-Oct-2026</td>
 <td>14-Oct-2026</td>
 <td>14-Oct-2026</td>
 <td>Tidak Dinyatakan</td>
 <td>Keselamatan</td>
-<td>Maklum balas isu pintu dan emergency brake</td>
+<td>
+Maklum balas isu pintu dan emergency brake
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 12 -->
+<!-- ================================================= -->
+
 <tr data-category="TANDAS">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>28-Jul-2026</td>
 <td>27-Jul-2026</td>
 <td>25-Jul-2026</td>
 <td>ETS9532 Set302</td>
 <td>Tandas / Sanitasi</td>
-<td>Tandas berbau tidak menyenangkan</td>
+<td>
+Tandas berbau tidak menyenangkan
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 13 -->
+<!-- ================================================= -->
+
 <tr data-category="TANDAS">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>13-Jul-2026</td>
 <td>12-Jul-2026</td>
 <td>12-Jul-2026</td>
 <td>ETS9225 Set213</td>
 <td>Tandas / Sanitasi</td>
-<td>Total toilet breakdown</td>
+<td>
+Total toilet breakdown
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 14 -->
+<!-- ================================================= -->
+
 <tr data-category="KEBERSIHAN">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>29-Jun-2026</td>
 <td>27-Jun-2026</td>
 <td>20-Jun-2026</td>
 <td>Tren9045 Set202</td>
 <td>Kebersihan & Lipas</td>
-<td>Aduan bau dan kebersihan koc</td>
+<td>
+Aduan bau dan kebersihan koc
+</td>
 </tr>
 
+<!-- ================================================= -->
+<!-- REKOD 15 -->
+<!-- ================================================= -->
+
 <tr data-category="KEMUDAHAN">
-<td><span class="badge verified">Disahkan</span></td>
+<td><span class="badge verified">✅ Disahkan</span></td>
 <td>24-Jun-2026</td>
 <td>24-Jun-2026</td>
 <td>Tidak Dinyatakan</td>
 <td>EG9442 ETS204</td>
 <td>Kemudahan Tren</td>
-<td>Bunyi pengumuman terlalu kuat</td>
+<td>
+Bunyi pengumuman terlalu kuat
+</td>
 </tr>
 
-<!-- ========================= -->
-<!-- 6 REKOD F&B BELUM DISAHKAN -->
-<!-- ========================= -->
+<!-- TAMAT 15 REKOD DISAHKAN -->
+
+    <!-- ================================================= -->
+<!-- REKOD 16 -->
+<!-- F&B - PV3896806 -->
+<!-- ================================================= -->
 
 <tr class="unverified" data-category="F&B">
-<td><span class="badge pending">Belum Disahkan</span></td>
+
+<td>
+<span class="badge pending">
+⚠️ Perlu Verifikasi
+</span>
+</td>
+
 <td>04-Sep-2026</td>
 <td>04-Sep-2026</td>
 <td>02-Sep-2026</td>
 <td>PV3896806</td>
 <td>F&B</td>
-<td>[WEBFORM] PV3896806</td>
+
+<td>
+
+<details>
+
+<summary>
+[WEBFORM][Feedback Form] PV3896806
+</summary>
+
+<div class="details-box">
+
+<b>Kategori:</b> F&B<br><br>
+
+Tarikh Email:
+04-Sep-2026<br>
+
+Tarikh Laporan:
+04-Sep-2026<br>
+
+Tarikh Perjalanan:
+02-Sep-2026<br><br>
+
+Aduan berkaitan pengalaman pelanggan
+terhadap perkhidmatan makanan dalam tren.
+
+Status:
+⚠️ Menunggu verifikasi metadata akhir.
+
+</div>
+
+</details>
+
+</td>
 </tr>
 
+
+
+<!-- ================================================= -->
+<!-- REKOD 17 -->
+<!-- F&B - 640424025881 -->
+<!-- ================================================= -->
+
 <tr class="unverified" data-category="F&B">
-<td><span class="badge pending">Belum Disahkan</span></td>
+
+<td>
+<span class="badge pending">
+⚠️ Perlu Verifikasi
+</span>
+</td>
+
 <td>20-Oct-2026</td>
 <td>20-Oct-2026</td>
 <td>13-Oct-2026</td>
 <td>640424025881</td>
 <td>F&B</td>
-<td>[WEBFORM] 640424025881</td>
+
+<td>
+
+<details>
+
+<summary>
+[WEBFORM][Feedback Form] 640424025881
+</summary>
+
+<div class="details-box">
+
+<b>Kategori:</b> F&B<br><br>
+
+Tarikh Email:
+20-Oct-2026<br>
+
+Tarikh Perjalanan:
+13-Oct-2026<br><br>
+
+Aduan pelanggan berkaitan
+perkhidmatan makanan semasa perjalanan.
+
+Status:
+⚠️ Menunggu verifikasi metadata akhir.
+
+</div>
+
+</details>
+
+</td>
 </tr>
 
+
+
+<!-- ================================================= -->
+<!-- REKOD 18 -->
+<!-- VEGETARIAN MEAL -->
+<!-- ================================================= -->
+
 <tr class="unverified" data-category="F&B">
-<td><span class="badge pending">Belum Disahkan</span></td>
+
+<td>
+<span class="badge pending">
+⚠️ Perlu Verifikasi
+</span>
+</td>
+
 <td>Belum Disahkan</td>
 <td>Belum Disahkan</td>
 <td>Belum Disahkan</td>
 <td>Tidak Dinyatakan</td>
 <td>F&B</td>
-<td>Requested Vege Meal not served</td>
+
+<td>
+
+<details>
+
+<summary>
+COMPLAIN: Requested Vege Meal not served
+</summary>
+
+<div class="details-box">
+
+<b>Kategori:</b> F&B<br>
+<b>Subkategori:</b> Vegetarian Meal Failure<br><br>
+
+Pelanggan mendakwa vegetarian meal
+yang telah dipohon lebih awal tidak
+disediakan semasa perjalanan.
+
+Status:
+⚠️ Tarikh email dan perjalanan
+masih perlu disahkan.
+
+</div>
+
+</details>
+
+</td>
 </tr>
 
+
+
+<!-- ================================================= -->
+<!-- REKOD 19 -->
+<!-- FOOD POISONING -->
+<!-- ================================================= -->
+
 <tr class="unverified" data-category="F&B">
-<td><span class="badge pending">Belum Disahkan</span></td>
+
+<td>
+<span class="badge pending">
+⚠️ Perlu Verifikasi
+</span>
+</td>
+
 <td>Belum Disahkan</td>
 <td>Belum Disahkan</td>
 <td>Belum Disahkan</td>
 <td>ETS9109</td>
 <td>F&B</td>
-<td>Disyaki keracunan makanan Business Class</td>
+
+<td>
+
+<details>
+
+<summary>
+Disyaki Keracunan Makanan Business Class
+</summary>
+
+<div class="details-box">
+
+<b>Kategori:</b> F&B<br>
+<b>Subkategori:</b> Food Safety<br><br>
+
+Penumpang dan pasangan dilaporkan
+mengalami muntah serta cirit-birit
+selepas mengambil hidangan
+Business Class.
+
+Keutamaan:
+TINGGI
+
+Status:
+⚠️ Menunggu verifikasi tarikh email.
+
+</div>
+
+</details>
+
+</td>
 </tr>
 
+
+
+<!-- ================================================= -->
+<!-- REKOD 20 -->
+<!-- DINING CAR STAFF -->
+<!-- ================================================= -->
+
 <tr class="unverified" data-category="F&B">
-<td><span class="badge pending">Belum Disahkan</span></td>
+
+<td>
+<span class="badge pending">
+⚠️ Perlu Verifikasi
+</span>
+</td>
+
 <td>Belum Disahkan</td>
 <td>Belum Disahkan</td>
 <td>25-Dec-2026</td>
 <td>EG9343</td>
 <td>F&B</td>
-<td>Poor Service by Dining Car Staff</td>
+
+<td>
+
+<details>
+
+<summary>
+Formal Complaint - Poor Service by Dining Car Staff
+</summary>
+
+<div class="details-box">
+
+<b>Kategori:</b> F&B<br>
+<b>Subkategori:</b> Crew Service<br><br>
+
+Pelanggan membuat aduan terhadap
+layanan kru Dining Car / Bistro Staff
+semasa perjalanan tren EG9343.
+
+Status:
+⚠️ Tarikh email masih perlu disahkan.
+
+</div>
+
+</details>
+
+</td>
 </tr>
 
+
+
+<!-- ================================================= -->
+<!-- REKOD 21 -->
+<!-- ETS9108 -->
+<!-- ================================================= -->
+
 <tr class="unverified" data-category="F&B">
-<td><span class="badge pending">Belum Disahkan</span></td>
+
+<td>
+<span class="badge pending">
+⚠️ Perlu Verifikasi
+</span>
+</td>
+
 <td>27-Oct-2026</td>
 <td>26-Oct-2026</td>
 <td>26-Oct-2026</td>
 <td>ETS9108</td>
 <td>F&B</td>
-<td>2 hidangan dibeli tetapi hanya 1 diterima</td>
+
+<td>
+
+<details>
+
+<summary>
+Makanan Tidak Lengkap Diterima
+</summary>
+
+<div class="details-box">
+
+<b>Kategori:</b> F&B<br>
+<b>Subkategori:</b> Meal Delivery Failure<br><br>
+
+Pelanggan membeli dua hidangan tetapi
+hanya menerima satu hidangan.
+
+Aduan berkaitan kegagalan pembekalan
+makanan yang ditempah.
+
+Status:
+⚠️ Menunggu verifikasi metadata penuh.
+
+</div>
+
+</details>
+
+</td>
 </tr>
+
+    <!-- ================================================= -->
+<!-- TAMAT REKOD DATA -->
+<!-- ================================================= -->
 
 </tbody>
 
 </table>
 
+<br><br>
+
+<h2>Ringkasan Statistik</h2>
+
+<table>
+
+<tr>
+<th>Kategori</th>
+<th>Bilangan Kes</th>
+<th>Peratus (%)</th>
+</tr>
+
+<tr>
+<td>F&amp;B</td>
+<td>7</td>
+<td>33.3%</td>
+</tr>
+
+<tr>
+<td>Tandas / Sanitasi</td>
+<td>4</td>
+<td>19.0%</td>
+</tr>
+
+<tr>
+<td>Kemudahan Tren</td>
+<td>4</td>
+<td>19.0%</td>
+</tr>
+
+<tr>
+<td>Kebersihan &amp; Lipas</td>
+<td>2</td>
+<td>9.5%</td>
+</tr>
+
+<tr>
+<td>HVAC / Aircond</td>
+<td>1</td>
+<td>4.8%</td>
+</tr>
+
+<tr>
+<td>Layanan Kakitangan</td>
+<td>1</td>
+<td>4.8%</td>
+</tr>
+
+<tr>
+<td>Soket Elektrik</td>
+<td>1</td>
+<td>4.8%</td>
+</tr>
+
+<tr>
+<td>Keselamatan</td>
+<td>1</td>
+<td>4.8%</td>
+</tr>
+
+<tr style="background:#003366;color:white;font-weight:bold;">
+<td>JUMLAH</td>
+<td>21</td>
+<td>100%</td>
+</tr>
+
+</table>
+
+<br>
+
+<h2>Status Data</h2>
+
+<table>
+
+<tr>
+<th>Status</th>
+<th>Bilangan Kes</th>
+</tr>
+
+<tr>
+<td>✅ Disahkan</td>
+<td>15</td>
+</tr>
+
+<tr>
+<td>⚠️ Menunggu Verifikasi Metadata</td>
+<td>6</td>
+</tr>
+
+<tr style="background:#003366;color:white;font-weight:bold;">
+<td>JUMLAH KES</td>
+<td>21</td>
+</tr>
+
+</table>
+
+<br>
+
 <div class="footer">
-Dashboard Aduan Servis Tren Intercity v0.6<br>
-Jumlah Kes: 21 | Disahkan: 15 | Menunggu Verifikasi Metadata: 6
+
+<b>Dashboard Aduan Servis Tren Intercity v0.6</b>
+<br><br>
+
+Jumlah Kes:
+21
+<br>
+
+Rekod Disahkan:
+15
+<br>
+
+Rekod Menunggu Verifikasi:
+6
+<br><br>
+
+Nota:
+
+<ul>
+
+<li>
+Rekod berstatus ✅ Disahkan adalah berdasarkan e-mel yang telah disemak dan mempunyai maklumat tarikh yang dikenal pasti daripada semakan Inbox.
+</li>
+
+<li>
+Rekod berstatus ⚠️ Perlu Verifikasi dipaparkan bagi memastikan semua aduan penting khususnya kategori F&amp;B kekal direkodkan walaupun metadata e-mel masih menunggu pengesahan lanjut.
+</li>
+
+<li>
+Klik pada mana-mana rekod ⚠️ untuk melihat ringkasan aduan menggunakan fungsi expand/collapse.
+</li>
+
+<li>
+Klik pada kad KPI di bahagian atas untuk menapis kategori aduan.
+</li>
+
+<li>
+Gunakan kotak carian untuk mencari berdasarkan tren, tarikh, kategori atau kata kunci.
+</li>
+
+</ul>
+
 </div>
 
 </div>
 
 </body>
+
 </html>
