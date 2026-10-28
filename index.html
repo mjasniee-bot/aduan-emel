@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard Aduan Servis Tren Intercity 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dashboard Aduan Servis Tren Intercity</title>
 
 <style>
 
 body{
-    font-family: "Segoe UI",Arial,sans-serif;
-    background:#f3f6fa;
+    font-family:Segoe UI,Arial,sans-serif;
+    background:#f4f6f9;
     margin:0;
     padding:20px;
 }
@@ -19,16 +20,11 @@ body{
     background:#003366;
     color:white;
     padding:20px;
-    border-radius:10px;
+    border-radius:8px;
 }
 
 .header h1{
     margin:0;
-}
-
-.header p{
-    margin-top:8px;
-    opacity:0.9;
 }
 
 .cards{
@@ -41,14 +37,15 @@ body{
 .card{
     background:white;
     padding:15px;
-    border-radius:10px;
-    min-width:220px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    border-radius:8px;
+    flex:1;
+    min-width:200px;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
 }
 
 .card-title{
+    font-size:13px;
     color:#666;
-    font-size:14px;
 }
 
 .card-value{
@@ -58,11 +55,24 @@ body{
 }
 
 .section{
-    background:white;
     margin-top:20px;
+    background:white;
     padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+.filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+input,select{
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:4px;
 }
 
 table{
@@ -76,62 +86,57 @@ th{
     color:white;
     padding:10px;
     text-align:left;
+    position:sticky;
+    top:0;
 }
 
 td{
-    border-bottom:1px solid #ddd;
     padding:8px;
+    border-bottom:1px solid #ddd;
 }
 
 tr:hover{
-    background:#f4f8ff;
+    background:#f5f9ff;
 }
 
-.open{
-    color:#856404;
+.status-open{
     background:#fff3cd;
     padding:5px 8px;
     border-radius:5px;
 }
 
-.investigation{
-    color:#0c5460;
+.status-progress{
     background:#d1ecf1;
     padding:5px 8px;
     border-radius:5px;
 }
 
-.closed{
-    color:#155724;
+.status-close{
     background:#d4edda;
     padding:5px 8px;
     border-radius:5px;
 }
 
-.summary-table td:first-child{
-    font-weight:bold;
-}
-
-.footer{
-    margin-top:20px;
-    color:#555;
-    font-size:12px;
+.small{
+    font-size:11px;
+    color:#666;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="header">
     <h1>Dashboard Aduan Servis Tren Intercity 2026</h1>
-    <p>Gabungan Aduan Call Center, Webform dan E-mel Terus</p>
+    <p>Call Center | Webform | Direct Email</p>
 </div>
 
 <div class="cards">
 
 <div class="card">
-<div class="card-title">Jumlah Rekod Aduan</div>
+<div class="card-title">Jumlah Aduan</div>
 <div class="card-value">26</div>
 </div>
 
@@ -141,17 +146,17 @@ tr:hover{
 </div>
 
 <div class="card">
-<div class="card-title">Kebersihan / Lipas</div>
+<div class="card-title">Kebersihan</div>
 <div class="card-value">6</div>
 </div>
 
 <div class="card">
-<div class="card-title">F&B / Business Class</div>
+<div class="card-title">F&B / BC</div>
 <div class="card-value">8</div>
 </div>
 
 <div class="card">
-<div class="card-title">Layanan Kakitangan</div>
+<div class="card-title">Layanan Staf</div>
 <div class="card-value">4</div>
 </div>
 
@@ -159,116 +164,386 @@ tr:hover{
 
 <div class="section">
 
-<h2>Rumusan Mengikut Kategori</h2>
+<h2>Carian Aduan</h2>
 
-<table class="summary-table">
+<div class="filters">
 
-<tr>
-<th>Kategori</th>
-<th>Bilangan Kes</th>
-</tr>
+<input
+type="text"
+id="myInput"
+placeholder="Cari tren, kategori, subject, status..."
+onkeyup="filterTable()">
 
-<tr><td>Aircond / HVAC</td><td>3</td></tr>
-<tr><td>Tandas & Sanitasi</td><td>3</td></tr>
-<tr><td>Kebersihan / Lipas</td><td>6</td></tr>
-<tr><td>Seat / Kemudahan Tren</td><td>4</td></tr>
-<tr><td>F&B / Catering</td><td>5</td></tr>
-<tr><td>Business Class</td><td>3</td></tr>
-<tr><td>Layanan Kakitangan</td><td>4</td></tr>
-<tr><td>Keselamatan Elektrik</td><td>1</td></tr>
+<select id="kategoriFilter" onchange="filterTable()">
+<option value="">Semua Kategori</option>
+<option>Aircond</option>
+<option>Kebersihan</option>
+<option>Lipas</option>
+<option>F&B</option>
+<option>Business Class</option>
+<option>Tandas</option>
+<option>Layanan Kakitangan</option>
+<option>Soket Elektrik</option>
+</select>
 
-</table>
+<select id="sumberFilter" onchange="filterTable()">
+<option value="">Semua Sumber</option>
+<option>Webform</option>
+<option>Call Center</option>
+<option>Email</option>
+<option>Aduan Formal</option>
+</select>
+
+<select id="statusFilter" onchange="filterTable()">
+<option value="">Semua Status</option>
+<option>Open</option>
+<option>Siasatan</option>
+<option>Refund</option>
+<option>RSME</option>
+<option>TCB</option>
+</select>
 
 </div>
 
-<div class="section">
+<table id="aduanTable">
 
-<h2>Senarai Aduan Terperinci</h2>
-
-<table>
+<thead>
 
 <tr>
-<th>Tarikh</th>
+<th>Tarikh Email</th>
+<th>Tarikh Aduan/Perjalanan</th>
 <th>Sumber</th>
-<th>Tren</th>
+<th>No Tren</th>
 <th>Kategori</th>
-<th>Ringkasan Aduan</th>
+<th>Subject Email</th>
 <th>Status</th>
+<th>Catatan</th>
 </tr>
 
-<tr><td>12-Jun-2026</td><td>Webform</td><td>EP9224 / ETS305</td><td>Seat Rosak</td><td>Kerusi BC Seat 1C tidak boleh dilaras</td><td><span class="investigation">RSME</span></td></tr>
+</thead>
 
-<tr><td>14-Jul-2026</td><td>Webform</td><td>EP9223</td><td>Soket Elektrik</td><td>Plug seat 13A dan 13B tidak berfungsi</td><td><span class="investigation">RSME</span></td></tr>
+<tbody>
 
-<tr><td>17-Jul-2026</td><td>Webform</td><td>ETS 9428</td><td>Serangga</td><td>Kehadiran serangga di dalam tren</td><td><span class="open">Open</span></td></tr>
+<tr>
+<td>13-Jul-2026</td>
+<td>12-Jun-2026</td>
+<td>Webform</td>
+<td>EP9224</td>
+<td>Seat Rosak</td>
+<td>BC Seat 1C Tidak Boleh Dilaras</td>
+<td>RSME</td>
+<td>Pembaikan diminta</td>
+</tr>
 
-<tr><td>19-Aug-2026</td><td>Webform</td><td>ETS 9323</td><td>Kemudahan Tren</td><td>Seat 10D basah</td><td><span class="investigation">Siasatan</span></td></tr>
+<tr>
+<td>14-Jul-2026</td>
+<td>14-Jul-2026</td>
+<td>Webform</td>
+<td>EP9223</td>
+<td>Soket Elektrik</td>
+<td>Soket 13A dan 13B rosak</td>
+<td>RSME</td>
+<td>Pemeriksaan set tren</td>
+</tr>
 
-<tr><td>20-Aug-2026</td><td>Call Center</td><td>N/A</td><td>Sikap Pekerja</td><td>Aduan terhadap cleaner ETS</td><td><span class="investigation">Kontraktor</span></td></tr>
+<tr>
+<td>17-Jul-2026</td>
+<td>17-Jul-2026</td>
+<td>Webform</td>
+<td>ETS 9428</td>
+<td>Kebersihan</td>
+<td>Serangga Dalam Tren</td>
+<td>Open</td>
+<td>Kawalan perosak</td>
+</tr>
 
-<tr><td>21-Aug-2026</td><td>Email</td><td>ETS 9224</td><td>Layanan Kakitangan</td><td>Krew didakwa kasar dan mengalihkan bagasi</td><td><span class="investigation">Siasatan</span></td></tr>
+<tr>
+<td>20-Aug-2026</td>
+<td>20-Aug-2026</td>
+<td>Call Center</td>
+<td>N/A</td>
+<td>Layanan Kakitangan</td>
+<td>Aduan Cleaner ETS</td>
+<td>Siasatan</td>
+<td>Mesyuarat kontraktor</td>
+</tr>
 
-<tr><td>22-Aug-2026</td><td>Call Center</td><td>ETS 9058</td><td>Lipas</td><td>Banyak lipas dalam koc</td><td><span class="open">Open</span></td></tr>
+<tr>
+<td>21-Aug-2026</td>
+<td>21-Aug-2026</td>
+<td>Email</td>
+<td>ETS 9224</td>
+<td>Layanan Kakitangan</td>
+<td>Crew Behaviour Complaint</td>
+<td>Siasatan</td>
+<td>Dalaman</td>
+</tr>
 
-<tr><td>23-Aug-2026</td><td>Call Center</td><td>EP9535</td><td>Lipas</td><td>Lipas dan serangga dalam tren</td><td><span class="open">Open</span></td></tr>
+<tr>
+<td>22-Aug-2026</td>
+<td>22-Aug-2026</td>
+<td>Call Center</td>
+<td>ETS 9058</td>
+<td>Lipas</td>
+<td>Lipas Dalam Coach ETS</td>
+<td>Open</td>
+<td>Sanitasi</td>
+</tr>
 
-<tr><td>31-Aug-2026</td><td>Webform</td><td>ETS 9575</td><td>Kualiti Makanan</td><td>Ayam terlalu keras</td><td><span class="closed">Refund</span></td></tr>
+<tr>
+<td>23-Aug-2026</td>
+<td>23-Aug-2026</td>
+<td>Call Center</td>
+<td>EP9535</td>
+<td>Lipas</td>
+<td>Lipas Dan Serangga</td>
+<td>Open</td>
+<td>Sanitasi</td>
+</tr>
 
-<tr><td>02-Sep-2026</td><td>Webform</td><td>ETS 9109</td><td>Keselamatan Makanan</td><td>Disyaki keracunan makanan</td><td><span class="investigation">Siasatan</span></td></tr>
+<tr>
+<td>31-Aug-2026</td>
+<td>31-Aug-2026</td>
+<td>Webform</td>
+<td>ETS 9575</td>
+<td>F&B</td>
+<td>Kualiti Hidangan BC</td>
+<td>Refund</td>
+<td>RM15</td>
+</tr>
 
-<tr><td>08-Sep-2026</td><td>Call Center</td><td>ETS 9214</td><td>Catering</td><td>Makanan add-on tidak diterima</td><td><span class="investigation">TCB</span></td></tr>
+<tr>
+<td>02-Sep-2026</td>
+<td>02-Sep-2026</td>
+<td>Webform</td>
+<td>ETS 9109</td>
+<td>F&B</td>
+<td>Disyaki Keracunan Makanan</td>
+<td>Siasatan</td>
+<td>TCB</td>
+</tr>
 
-<tr><td>14-Sep-2026</td><td>Webform</td><td>ETS 9352</td><td>Profesionalisme</td><td>Kakitangan didakwa mengabaikan tugas</td><td><span class="investigation">Siasatan</span></td></tr>
+<tr>
+<td>09-Sep-2026</td>
+<td>08-Sep-2026</td>
+<td>Call Center</td>
+<td>ETS 9214</td>
+<td>F&B</td>
+<td>Kegagalan Pembekalan Makanan Add-on</td>
+<td>TCB</td>
+<td>Meal not delivered</td>
+</tr>
 
-<tr><td>16-Sep-2026</td><td>Email</td><td>N/A</td><td>Vegetarian Meal</td><td>Makanan vegetarian tidak disediakan</td><td><span class="investigation">TCB</span></td></tr>
+<tr>
+<td>15-Sep-2026</td>
+<td>14-Sep-2026</td>
+<td>Webform</td>
+<td>ETS 9352</td>
+<td>Layanan Kakitangan</td>
+<td>Staf Abaikan Tugasan</td>
+<td>Siasatan</td>
+<td>HR/Operasi</td>
+</tr>
 
-<tr><td>27-Sep-2026</td><td>Webform</td><td>EP9233</td><td>Aircond</td><td>Coach E tidak sejuk</td><td><span class="investigation">RSME</span></td></tr>
+<tr>
+<td>16-Sep-2026</td>
+<td>16-Sep-2026</td>
+<td>Email</td>
+<td>N/A</td>
+<td>Business Class</td>
+<td>Vegetarian Meal Tidak Disediakan</td>
+<td>TCB</td>
+<td>Semakan katering</td>
+</tr>
 
-<tr><td>29-Sep-2026</td><td>Webform</td><td>EP9428</td><td>Keselamatan Elektrik</td><td>Powerbank mengembung selepas dicas</td><td><span class="investigation">Teknikal</span></td></tr>
+<tr>
+<td>27-Sep-2026</td>
+<td>27-Sep-2026</td>
+<td>Webform</td>
+<td>EP9233</td>
+<td>Aircond</td>
+<td>Coach E Tidak Sejuk</td>
+<td>RSME</td>
+<td>Semakan HVAC</td>
+</tr>
 
-<tr><td>04-Oct-2026</td><td>Webform</td><td>EP9135</td><td>Aircond</td><td>Coach B tidak sejuk</td><td><span class="investigation">RSME</span></td></tr>
+<tr>
+<td>29-Sep-2026</td>
+<td>29-Sep-2026</td>
+<td>Webform</td>
+<td>EP9428</td>
+<td>Soket Elektrik</td>
+<td>Powerbank Mengembung</td>
+<td>Siasatan</td>
+<td>Keselamatan Elektrik</td>
+</tr>
 
-<tr><td>08-Oct-2026</td><td>Webform</td><td>EP9528</td><td>F&B</td><td>Makanan lewat dihantar</td><td><span class="investigation">TCB</span></td></tr>
+<tr>
+<td>04-Oct-2026</td>
+<td>04-Oct-2026</td>
+<td>Webform</td>
+<td>EP9135</td>
+<td>Aircond</td>
+<td>Coach B Tidak Sejuk</td>
+<td>RSME</td>
+<td>Semakan teknik</td>
+</tr>
 
-<tr><td>10-Oct-2026</td><td>Aduan Formal</td><td>EX9209</td><td>Tandas Rosak</td><td>Tandas BC tidak berfungsi</td><td><span class="investigation">RSME</span></td></tr>
+<tr>
+<td>08-Oct-2026</td>
+<td>08-Oct-2026</td>
+<td>Webform</td>
+<td>EP9528</td>
+<td>F&B</td>
+<td>Makanan Lewat Dihantar</td>
+<td>Siasatan</td>
+<td>TCB</td>
+</tr>
 
-<tr><td>10-Oct-2026</td><td>Webform</td><td>EP9530</td><td>Lipas</td><td>Lipas dalam tren ETS</td><td><span class="open">Open</span></td></tr>
+<tr>
+<td>10-Oct-2026</td>
+<td>10-Oct-2026</td>
+<td>Aduan Formal</td>
+<td>EX9209</td>
+<td>Tandas</td>
+<td>Tandas BC Tidak Berfungsi</td>
+<td>RSME</td>
+<td>Pemeriksaan fasiliti</td>
+</tr>
 
-<tr><td>11-Oct-2026</td><td>Email</td><td>ETS 9326 BC</td><td>Business Class</td><td>Pertikaian manfaat BC</td><td><span class="investigation">Semakan</span></td></tr>
+<tr>
+<td>10-Oct-2026</td>
+<td>10-Oct-2026</td>
+<td>Webform</td>
+<td>EP9530</td>
+<td>Lipas</td>
+<td>Lipas Dalam ETS</td>
+<td>Open</td>
+<td>Kawalan perosak</td>
+</tr>
 
-<tr><td>13-Oct-2026</td><td>Webform</td><td>EX9214</td><td>Layanan F&B</td><td>Permintaan air panas tidak dilayan</td><td><span class="investigation">TCB</span></td></tr>
+<tr>
+<td>11-Oct-2026</td>
+<td>11-Oct-2026</td>
+<td>Email</td>
+<td>ETS9326 BC</td>
+<td>Business Class</td>
+<td>Pertikaian Manfaat BC</td>
+<td>Siasatan</td>
+<td>Operasi</td>
+</tr>
 
-<tr><td>14-Oct-2026</td><td>Webform</td><td>ETS Ipoh-JB</td><td>Kebersihan Tandas</td><td>Lipas dan bau tandas</td><td><span class="open">Open</span></td></tr>
+<tr>
+<td>13-Oct-2026</td>
+<td>13-Oct-2026</td>
+<td>Webform</td>
+<td>EX9214</td>
+<td>F&B</td>
+<td>Air Panas Tidak Dilayan</td>
+<td>Siasatan</td>
+<td>TCB</td>
+</tr>
 
-<tr><td>15-Oct-2026</td><td>Webform</td><td>EP9428</td><td>Sanitasi</td><td>Bau tandas dan isu kebersihan</td><td><span class="investigation">RSME</span></td></tr>
+<tr>
+<td>14-Oct-2026</td>
+<td>14-Oct-2026</td>
+<td>Webform</td>
+<td>ETS Ipoh-JB</td>
+<td>Kebersihan</td>
+<td>Lipas Dan Bau Tandas</td>
+<td>Open</td>
+<td>Sanitasi</td>
+</tr>
 
-<tr><td>17-Oct-2026</td><td>Webform</td><td>Kluang-Pasir Mas</td><td>Layanan Kakitangan</td><td>Kakitangan kasar dan tidak profesional</td><td><span class="investigation">Siasatan</span></td></tr>
+<tr>
+<td>15-Oct-2026</td>
+<td>15-Oct-2026</td>
+<td>Webform</td>
+<td>EP9428</td>
+<td>Kebersihan</td>
+<td>Bau Tandas</td>
+<td>RSME</td>
+<td>Sanitasi coach</td>
+</tr>
 
-<tr><td>22-Oct-2026</td><td>Aduan Formal</td><td>EG9056</td><td>Aircond</td><td>Coach F panas dan kurang pengudaraan</td><td><span class="investigation">RSME</span></td></tr>
+<tr>
+<td>17-Oct-2026</td>
+<td>17-Oct-2026</td>
+<td>Webform</td>
+<td>Kluang-Pasir Mas</td>
+<td>Layanan Kakitangan</td>
+<td>Staff Tidak Profesional</td>
+<td>Siasatan</td>
+<td>Tatatertib</td>
+</tr>
 
-<tr><td>26-Oct-2026</td><td>Webform</td><td>ETS 9108</td><td>Makanan Tidak Lengkap</td><td>2 hidangan dibeli tetapi hanya 1 diterima</td><td><span class="investigation">Refund</span></td></tr>
+<tr>
+<td>22-Oct-2026</td>
+<td>22-Oct-2026</td>
+<td>Aduan Formal</td>
+<td>EG9056</td>
+<td>Aircond</td>
+<td>Coach F Panas</td>
+<td>RSME</td>
+<td>HVAC</td>
+</tr>
 
+<tr>
+<td>27-Oct-2026</td>
+<td>26-Oct-2026</td>
+<td>Webform</td>
+<td>ETS9108</td>
+<td>F&B</td>
+<td>Feedback Form 920525075294</td>
+<td>Refund</td>
+<td>1 daripada 2 hidangan diterima</td>
+</tr>
+
+</tbody>
 </table>
-
 </div>
 
-<div class="section">
+<script>
 
-<h2>Fokus Tindakan Pengurusan November 2026</h2>
+function filterTable() {
 
-<ul>
-<li>Program kawalan lipas dan sanitasi ETS.</li>
-<li>Pemantauan aircond coach yang kerap menerima aduan.</li>
-<li>Audit kualiti katering Business Class dan add-on meal.</li>
-<li>Pemantauan sikap serta profesionalisme petugas onboard.</li>
-<li>Semakan tren/set ETS yang mempunyai aduan berulang.</li>
-</ul>
+let search = document.getElementById("myInput").value.toUpperCase();
+let kategori = document.getElementById("kategoriFilter").value.toUpperCase();
+let sumber = document.getElementById("sumberFilter").value.toUpperCase();
+let status = document.getElementById("statusFilter").value.toUpperCase();
 
-</div>
+let table = document.getElementById("aduanTable");
+let tr = table.getElementsByTagName("tr");
 
-<div class="footer">
-Dashboard Aduan Servis Tren Intercity | Untuk Semakan Dalaman Sahaja
-</div>
+for(let i=1;i<tr.length;i++){
+
+let txt = tr[i].innerText.toUpperCase();
+
+let show = true;
+
+if(search && !txt.includes(search)){
+show=false;
+}
+
+if(kategori && !txt.includes(kategori)){
+show=false;
+}
+
+if(sumber && !txt.includes(sumber)){
+show=false;
+}
+
+if(status && !txt.includes(status)){
+show=false;
+}
+
+tr[i].style.display = show ? "" : "none";
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
