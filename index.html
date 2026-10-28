@@ -22,11 +22,11 @@ body{
 }
 
 .container{
-    background:white;
     margin-top:20px;
+    background:white;
     padding:20px;
     border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
 .cards{
@@ -40,6 +40,12 @@ body{
     color:white;
     padding:15px;
     border-radius:8px;
+    cursor:pointer;
+    transition:all .2s;
+}
+
+.card:hover{
+    transform:translateY(-2px);
 }
 
 .card h3{
@@ -50,19 +56,33 @@ body{
 .card .value{
     font-size:34px;
     font-weight:bold;
-    margin-top:10px;
+}
+
+.toolbar{
+    margin-bottom:15px;
 }
 
 input{
-    width:450px;
     padding:10px;
+    width:400px;
     border:1px solid #ccc;
     border-radius:5px;
+}
+
+button{
+    padding:10px 15px;
+    margin-left:8px;
+    border:none;
+    border-radius:5px;
+    background:#003366;
+    color:white;
+    cursor:pointer;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
+    margin-top:15px;
     font-size:13px;
 }
 
@@ -79,7 +99,7 @@ td{
 }
 
 tr:hover{
-    background:#f4f8ff;
+    background:#f1f7ff;
 }
 
 .footer{
@@ -92,26 +112,52 @@ tr:hover{
 
 <script>
 
-function searchTable() {
+function searchTable(){
 
 let input=document.getElementById("searchInput");
 let filter=input.value.toUpperCase();
 
-let table=document.getElementById("aduanTable");
-let tr=table.getElementsByTagName("tr");
+let rows=document.querySelectorAll("#aduanTable tbody tr");
 
-for(let i=1;i<tr.length;i++){
+rows.forEach(row=>{
 
-let txt=tr[i].innerText.toUpperCase();
+let text=row.innerText.toUpperCase();
 
-if(txt.indexOf(filter)>-1){
-tr[i].style.display="";
+if(text.indexOf(filter)>-1){
+row.style.display="";
+}else{
+row.style.display="none";
+}
+
+});
+
+}
+
+function filterCategory(category){
+
+let rows=document.querySelectorAll("#aduanTable tbody tr");
+
+rows.forEach(row=>{
+
+let cat=row.getAttribute("data-category");
+
+if(category=="ALL"){
+row.style.display="";
 }
 else{
-tr[i].style.display="none";
+
+if(cat===category){
+row.style.display="";
+}
+else{
+row.style.display="none";
 }
 
 }
+
+});
+
+document.getElementById("searchInput").value="";
 
 }
 
@@ -132,64 +178,79 @@ tr[i].style.display="none";
 
 <div class="cards">
 
-<div class="card" style="background:#003366;">
-<h3>Jumlah Rekod Disahkan</h3>
+<div class="card" style="background:#003366;"
+onclick="filterCategory('ALL')">
+<h3>Jumlah Rekod</h3>
 <div class="value">15</div>
 </div>
 
-<div class="card" style="background:#0d6efd;">
+<div class="card" style="background:#0d6efd;"
+onclick="filterCategory('Tandas')">
 <h3>Tandas / Sanitasi</h3>
 <div class="value">4</div>
 </div>
 
-<div class="card" style="background:#198754;">
+<div class="card" style="background:#198754;"
+onclick="filterCategory('Kemudahan')">
 <h3>Kemudahan Tren</h3>
 <div class="value">4</div>
 </div>
 
-<div class="card" style="background:#fd7e14;">
-<h3>Kebersihan / Lipas</h3>
+<div class="card" style="background:#fd7e14;"
+onclick="filterCategory('Kebersihan')">
+<h3>Kebersihan & Lipas</h3>
 <div class="value">2</div>
 </div>
 
-<div class="card" style="background:#6f42c1;">
-<h3>Aircond / HVAC</h3>
+<div class="card" style="background:#dc3545;"
+onclick="filterCategory('F&B')">
+<h3>F&B</h3>
 <div class="value">1</div>
 </div>
 
-<div class="card" style="background:#dc3545;">
-<h3>Makanan / Catering</h3>
+<div class="card" style="background:#6f42c1;"
+onclick="filterCategory('HVAC')">
+<h3>HVAC / Aircond</h3>
 <div class="value">1</div>
 </div>
 
-<div class="card" style="background:#20c997;">
+<div class="card" style="background:#20c997;"
+onclick="filterCategory('Kakitangan')">
 <h3>Layanan Kakitangan</h3>
 <div class="value">1</div>
 </div>
 
-<div class="card" style="background:#6c757d;">
+<div class="card" style="background:#6c757d;"
+onclick="filterCategory('Elektrik')">
 <h3>Soket Elektrik</h3>
 <div class="value">1</div>
 </div>
 
-<div class="card" style="background:#495057;">
+<div class="card" style="background:#495057;"
+onclick="filterCategory('Keselamatan')">
 <h3>Keselamatan</h3>
 <div class="value">1</div>
 </div>
 
 </div>
 
-<h2>Carian</h2>
+<div class="toolbar">
 
 <input
 type="text"
 id="searchInput"
-onkeyup="searchTable()"
-placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
+placeholder="Cari tren, kategori, tarikh atau aduan..."
+onkeyup="searchTable()">
 
-<br><br>
+<button onclick="filterCategory('ALL')">
+Papar Semua
+</button>
+
+</div>
 
 <table id="aduanTable">
+
+<thead>
 
 <tr>
 <th>Tarikh Email</th>
@@ -200,7 +261,11 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <th>Ringkasan Aduan</th>
 </tr>
 
-<tr>
+</thead>
+
+<tbody>
+
+<tr data-category="Kakitangan">
 <td>27-Oct-2026</td>
 <td>26-Oct-2026</td>
 <td>17-Oct-2026</td>
@@ -209,16 +274,16 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Complaint Regarding Rude and Unprofessional KTM Staff</td>
 </tr>
 
-<tr>
+<tr data-category="F&B">
 <td>09-Sep-2026</td>
 <td>08-Sep-2026</td>
 <td>08-Sep-2026</td>
 <td>ETS9214</td>
-<td>Makanan / Catering</td>
+<td>F&B</td>
 <td>Tempahan makanan add-on tidak diterima</td>
 </tr>
 
-<tr>
+<tr data-category="Elektrik">
 <td>16-Jul-2026</td>
 <td>14-Jul-2026</td>
 <td>14-Jul-2026</td>
@@ -227,7 +292,7 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Plug Seat 13A dan 13B tidak berfungsi</td>
 </tr>
 
-<tr>
+<tr data-category="Kemudahan">
 <td>13-Jul-2026</td>
 <td>11-Jul-2026</td>
 <td>12-Jun-2026</td>
@@ -236,7 +301,7 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Kerusi BC Seat 1C rosak</td>
 </tr>
 
-<tr>
+<tr data-category="Kemudahan">
 <td>21-Aug-2026</td>
 <td>19-Aug-2026</td>
 <td>19-Aug-2026</td>
@@ -245,25 +310,25 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Seat 10D basah</td>
 </tr>
 
-<tr>
+<tr data-category="Kebersihan">
 <td>12-Oct-2026</td>
 <td>11-Oct-2026</td>
 <td>10-Oct-2026</td>
 <td>ETS9530 Set304</td>
-<td>Kebersihan / Lipas</td>
+<td>Kebersihan & Lipas</td>
 <td>Aduan lipas dalam tren</td>
 </tr>
 
-<tr>
+<tr data-category="HVAC">
 <td>12-Oct-2026</td>
 <td>10-Oct-2026</td>
 <td>10-Oct-2026</td>
 <td>EP9133 Set217</td>
-<td>Aircond / HVAC</td>
+<td>HVAC / Aircond</td>
 <td>Coach E tidak sejuk</td>
 </tr>
 
-<tr>
+<tr data-category="Kemudahan">
 <td>12-Oct-2026</td>
 <td>12-Oct-2026</td>
 <td>10-Oct-2026</td>
@@ -272,7 +337,7 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Tingkap Koc F Seat 3A bocor</td>
 </tr>
 
-<tr>
+<tr data-category="Tandas">
 <td>09-Oct-2026</td>
 <td>09-Oct-2026</td>
 <td>09-Oct-2026</td>
@@ -281,7 +346,7 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Tandas Koc B rosak</td>
 </tr>
 
-<tr>
+<tr data-category="Tandas">
 <td>16-Oct-2026</td>
 <td>15-Oct-2026</td>
 <td>15-Oct-2026</td>
@@ -290,7 +355,7 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Bau tandas dan pengudaraan</td>
 </tr>
 
-<tr>
+<tr data-category="Keselamatan">
 <td>15-Oct-2026</td>
 <td>14-Oct-2026</td>
 <td>14-Oct-2026</td>
@@ -299,7 +364,7 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Maklum balas isu pintu dan emergency brake</td>
 </tr>
 
-<tr>
+<tr data-category="Tandas">
 <td>28-Jul-2026</td>
 <td>27-Jul-2026</td>
 <td>25-Jul-2026</td>
@@ -308,7 +373,7 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Tandas berbau tidak menyenangkan</td>
 </tr>
 
-<tr>
+<tr data-category="Tandas">
 <td>13-Jul-2026</td>
 <td>12-Jul-2026</td>
 <td>12-Jul-2026</td>
@@ -317,16 +382,16 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Total toilet breakdown</td>
 </tr>
 
-<tr>
+<tr data-category="Kebersihan">
 <td>29-Jun-2026</td>
 <td>27-Jun-2026</td>
 <td>20-Jun-2026</td>
 <td>Tren9045 Set202</td>
-<td>Kebersihan / Lipas</td>
+<td>Kebersihan & Lipas</td>
 <td>Aduan bau dan kebersihan koc</td>
 </tr>
 
-<tr>
+<tr data-category="Kemudahan">
 <td>24-Jun-2026</td>
 <td>24-Jun-2026</td>
 <td>Tidak Dinyatakan</td>
@@ -335,32 +400,14 @@ placeholder="Cari tren, tarikh, set ETS, kategori atau aduan">
 <td>Bunyi pengumuman terlalu kuat</td>
 </tr>
 
-</table>
-
-<h2>Ringkasan Kategori</h2>
-
-<table>
-
-<tr>
-<th>Kategori</th>
-<th>Bilangan</th>
-<th>%</th>
-</tr>
-
-<tr><td>Tandas / Sanitasi</td><td>4</td><td>26.7%</td></tr>
-<tr><td>Kemudahan Tren</td><td>4</td><td>26.7%</td></tr>
-<tr><td>Kebersihan / Lipas</td><td>2</td><td>13.3%</td></tr>
-<tr><td>Aircond / HVAC</td><td>1</td><td>6.7%</td></tr>
-<tr><td>Makanan / Catering</td><td>1</td><td>6.7%</td></tr>
-<tr><td>Layanan Kakitangan</td><td>1</td><td>6.7%</td></tr>
-<tr><td>Soket Elektrik</td><td>1</td><td>6.7%</td></tr>
-<tr><td>Keselamatan</td><td>1</td><td>6.7%</td></tr>
+</tbody>
 
 </table>
 
 <div class="footer">
-Dashboard Aduan Servis Tren Intercity (Versi 0.4) |
-Data berdasarkan 15 rekod yang telah disahkan daripada Inbox.
+Dashboard Aduan Servis Tren Intercity v0.5 |
+15 rekod disahkan daripada Inbox |
+Klik mana-mana kad KPI untuk menapis kategori.
 </div>
 
 </div>
